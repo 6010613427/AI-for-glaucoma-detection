@@ -55,7 +55,7 @@ def model_dl(img_in):
     argmax = np.argmax(predictions)
     return class_names[argmax], predictions[argmax]
 
-model_path = "model_dl/model_4.h5"
+model_path = "model_dl/model_DenseNet121.h5"
 model = tf.keras.models.load_model(model_path)
 model.compile(optimizer='adam',
                           loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),

@@ -52,10 +52,11 @@ def resize(img_in):
 def model_ml(img_in):
     class_names = ['glaucoma', 'normal', 'other']
     predictions = model.predict(np.array([img_in]))[0]
-    #argmax = np.argmax(predictions)
-    return class_names[predictions], predictions
+    cfd = model.predict_proba(np.array([img_in]))[0]
+    argmax = np.argmax(cfd)
+    return class_names[predictions], cfd[argmax]
 
-model_path = "model_ml/model_1.h5"
+model_path = "model_ml/model_Knn.h5"
 model = pickle.load(open(model_path, 'rb'))
 
 
@@ -84,8 +85,8 @@ async def uploadImage(nonce: str = Form(None, title="Random String"), image: Upl
     return {
         "nonce": nonce,
         "classification": class_out,
-        #"confidence_score": np.float(class_cfd),
-        "confidence_score": str(class_cfd),
+        "confidence_score": np.float(class_cfd),
+        #"confidence_score": str(class_cfd),
         "currentTime": datetime.datetime.now(),
         "debug": {
             "image_size": dict(zip(["height", "width", "channels"], img.shape)),
