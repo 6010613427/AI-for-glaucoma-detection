@@ -56,7 +56,7 @@ def model_ml(img_in):
     argmax = np.argmax(cfd)
     return class_names[predictions], cfd[argmax]
 
-model_path = "model_ml/model_Knn.h5"
+model_path = "model_ml/model_4.h5"
 model = pickle.load(open(model_path, 'rb'))
 
 
